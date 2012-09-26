@@ -1,0 +1,8 @@
+#!/bin/bash
+
+[ -z "$1" ] && ( echo Must provide a message to append to the commit list.; exit )
+
+echo $1
+echo $1 >> .gitcommit
+
+

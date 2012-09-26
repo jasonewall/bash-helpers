@@ -1,0 +1,13 @@
+#!/bin/bash
+
+for file in "$@"
+do
+    if [ "$1" = "$file" ]; then
+        tmux new -d -s tabs "vim $file"
+    else
+        tmux new-window -t tabs "vim $file"
+    fi
+done
+
+tmux select-window -t tabs:0
+tmux at -t tabs

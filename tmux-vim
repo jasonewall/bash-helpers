@@ -1,0 +1,10 @@
+file_name=$1
+session_name=$2
+
+if [ -z "$session_name" ]; then
+    session_name="vim"
+fi
+
+tmux new-session -d -s $session_name
+tmux split-window -h -t $session_name "vim $file_name"
+tmux attach -t $session_name
