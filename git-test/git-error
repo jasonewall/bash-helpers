@@ -1,0 +1,3 @@
+echo "Danger Will Robinson!"
+
+exit 1

@@ -1,11 +1,5 @@
 #!/bin/bash
 
-result=`git commit -F .gitcommit`
-
-length=`echo $result | grep 'insertions(+)'`
-
-if [ -n "$length" ]; then
-    mv -f .gitcommit .gitcommit.last
-fi
+result=`git commit -F .gitcommit` && (mv -f .gitcommit .gitcommit.last; touch .gitcommit; exit)
 
 echo "${result}"
