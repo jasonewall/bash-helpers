@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+
+require 'pathname'
+
+site_name = ARGV.shift
+site_path = File.expand_path site_name, Dir.pwd
+
+abort "Site already exists, choose another name or delete the existing site." if Dir.exists? site_path
+
+Dir.mkdir site_path
+
+Gemfile = File.expand_path 'Gemfile', site_path
+
+File.open(Gemfile, 'w+') do |file|
+ file.print  %Q{
+source 'http://rubygems.org'
+  
+gem 'haml'
+  
+group :development do
+  gem 'guard'
+  gem 'guard-haml'
+  gem 'guard-livereload'
+  gem 'rb-inotify'
+end
+}
+end
+
+Guardfile = File.expand_path 'Guardfile', site_path
+
+File.open Guardfile, 'w+' do |file|
+  file.print %Q{
+guard 'haml', :input => 'src', :output => 'public' do
+  watch(%r{^.+(\.html\.haml)})
+end
+
+guard 'livereload' do
+  watch %r{public/.+\.(html|js|css)}
+end
+}
+end
+
+Dir.mkdir File.expand_path 'src', site_path
+Dir.mkdir File.expand_path 'public', site_path
+
+Dir.chdir site_name
+
+system "bundle install #{ARGV.join(' ')}" 
+
+File.open File.expand_path('.gitignore', site_path), 'w+' do |_gitignore|
+  _gitignore.puts ".bundle"
+  _gitignore.puts "bin" if ARGV.include?('--binstubs')
+end
+
+Dir.chdir '..'
