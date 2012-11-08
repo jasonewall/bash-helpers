@@ -3,7 +3,8 @@
 session_name=$1
 
 tmux new-session -d -s $session_name
-tmux split-window -h -t $session_name 'rails server -u'
-tmux split-window -v -t $session_name 'tail -f log/test.log'
-tmux select-pane -R -t $session_name
+tmux new-window -n consoles -t $session_name
+tmux new-window -n tests -t $session_name 
+tmux new-window -n server -t $session_name
+tmux select-window -t $session_name:0
 tmux attach -t $session_name
