@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+function _redis() {
+    case $1 in
+        start) 
+            redis-server --daemonize yes
+            echo "Started redis server"
+            ;;
+        stop)
+            echo "Stopping redis server..."
+            killall redis-server
+            ;;
+        *) 
+            echo "start - starts the redis server"
+            echo "stop - stops the redis server"
+            ;;
+    esac
+}
+
+_redis $1
