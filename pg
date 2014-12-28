@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+function _pg() {
+    case $1 in
+        start)
+            launchctl start homebrew.mxcl.postgresql
+            echo "Started postgres homebrew server"
+            ;;
+        stop)
+            echo "Stopping postgres homebrew server"
+            launchctl stop homebrew.mxcl.postgresql
+            ;;
+        running)
+            ps aux | grep --color=auto '[p]ostgres'
+            ;;
+        clean-pid)
+            rm /usr/local/var/postgres/postmaster.pid
+            ;;
+        *)
+            echo "start - starts the pg server"
+            echo "stop - stops the pg server"
+            echo "running - see pg processes that are running"
+            ;;
+    esac
+}
+
+_pg $1
