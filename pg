@@ -20,6 +20,7 @@ function _pg() {
             echo "start - starts the pg server"
             echo "stop - stops the pg server"
             echo "running - see pg processes that are running"
+            echo "clean-pid - clear out an orphaned pid file from a bad shutdown"
             ;;
     esac
 }
