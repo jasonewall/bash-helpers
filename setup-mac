@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Before running this make sure you've setup the github ssh key
+# but technically you should have already done this to even clone this file down
+# to execute it
+# 1. ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+# 2. ssh-add ~/.ssh/<key file name>
+#
+# also need the rubys installed but macs come with system rubies so it should
+# all be gud
+
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+brew install hub
+
+mkdir ~/Code
+mkdir ~/Code/thejayvm
+
+git clone git@github.com:thejayvm/dotfiles.git ~/Code/thejayvm/dotfiles
+cd ~/Code/thejayvm/dotfiles
+git checkout my-dotfiles
+
+bash -c ". rc; dotfiles install dotfiles; dotfiles install profile; dotfiles install git; dotfiles install atom"
+
+git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+
+bash -c ". rc; dotfiles install rbenv"
