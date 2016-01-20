@@ -10,7 +10,9 @@
 # If this seems confusing, don't worry. You can treat it as a normal Ruby file
 # starting with the "!ruby" shebang below.
 
-exec /Users/jason/.rbenv/versions/2.1.5/bin/ruby --disable-gems -x "$0" $*
+eval "$(rbenv init -)"
+rbenv shell system
+exec /Users/$USER/.rbenv/shims/ruby --disable-gems -x "$0" $*
 #!ruby
 
 if RUBY_VERSION < '1.9.3'
