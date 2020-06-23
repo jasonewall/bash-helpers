@@ -1,5 +1,0 @@
-#!/bin/bash
-
-result=`git commit -F .gitcommit` && (mv -f .gitcommit .gitcommit.last; touch .gitcommit; exit)
-
-echo "${result}"
