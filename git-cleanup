@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+function _git_cleanup() {
+    local command=$1
+
+    case $command in
+    --show-gone)
+        git branch -vv | grep ': gone]' | grep -v "\*" | awk '{ print $1; }'
+        ;;
+    --prune)
+        git remote prune origin
+        ;;
+    '')
+        _git_cleanup --prune
+        _git_cleanup --show-gone | xargs -r git branch -D
+        ;;
+    *)
+        ;;
+    esac
+
+}
+
+_git_cleanup $*
