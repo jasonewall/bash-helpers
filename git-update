@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+git fetch origin
+git remote prune origin
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+for blessed in 'main develop master'; do
+  if [ "$current_branch" = "$blessed" ]; then
+    git pull --quiet origin $branch
+  else
+    git fetch --quiet origin $branch:$branch
+  fi
+done
